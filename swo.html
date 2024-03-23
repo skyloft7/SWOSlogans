@@ -1,0 +1,98 @@
+<html>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+
+<body>
+<h1><span id="quote"></span><span id="swo"></span></h1>
+<style>
+    #quote {
+
+        font-family: "League Spartan";
+        font-size: 45px;
+        border-radius: 2px;
+        padding: 2px;
+        color: 2E4E96;
+
+    }
+
+    #swo {
+
+        font-family: "League Spartan";
+        font-size: 45px;
+        border-radius: 2px;
+        padding: 2px;
+        color: 0099FF;
+
+
+    }
+</style>
+<script>
+    let quote = document.getElementById("quote");
+    let swo = document.getElementById("swo");
+    let quotes = ["Our Stronger\nCommunity", "Education Equity", "Justice", "Quality Education", "Systemic Change", "Right to An\nEducation", "Community Care", "Challenging Systems", "Advocacy"];
+
+
+    //All time variables are in milliseconds
+    var typeDelay = 80;
+    var endDelay = 600;
+    var i = 0
+    var c = 0
+    //Don't touch!
+    var waitTime = 0
+    var waiting = false
+
+
+    function clamp(value, min, max) {
+        if (min > max) {
+            var temp = min;
+            min = max;
+            max = temp;
+        }
+        return Math.min(Math.max(Math.floor(value), min), max);
+    }
+
+    setInterval(() => {
+
+        if(waiting){
+            waitTime += typeDelay;
+
+            if(waitTime >= endDelay * 2){
+                waiting = false;
+                i++;
+                quote.innerText = "";
+                swo.innerText = "";
+
+                c = 0;
+                waitTime = 0;
+            };
+
+            return;
+        }
+
+
+        let currentQuote = quotes[i] + "\nStarts With One.";
+
+        if(i == quotes.length)
+            i = 0;
+
+        c++;
+        quote.innerHTML = currentQuote.substring(0, clamp(c, 0, quotes[i].length)).replaceAll("\n", "<br>");
+
+        if(c > quotes[i].length){
+            let text = currentQuote.substring(quotes[i].length, c);
+
+
+            swo.innerText = text;
+
+        }
+        if(c > currentQuote.length){
+            waiting = true;
+        }
+
+    }, typeDelay);
+</script>
+</body>
+</html>
+
